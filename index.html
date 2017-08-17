@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>Cup Game</title>
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript">
+		function play(cupNum){ //Once a cup is clicked determine the winner and if the user's choice is the winning cup
+			var cup1 = document.getElementById("cup1");
+			var cup2 = document.getElementById("cup2");
+			var cup3 = document.getElementById("cup3");
+			
+			cup1.onclick = null; //Don't allow the cups to be clicked before the game is reset.
+			cup2.onclick = null;
+			cup3.onclick = null;
+			
+			var result = document.getElementById("result");
+			var win = Math.floor(Math.random() * 3)+ 1;
+			var winString = "ball" + win.toString();
+	
+			
+			var ball = document.getElementById(winString);
+			ball.style.visibility = 'visible'; //Make the wining ball visibile under the winning cup
+			cup1.style.top= -100 + 'px';
+			cup2.style.top= -100 + 'px';
+			cup3.style.top= -100 + 'px';
+			if (cupNum == win){
+				result.innerText = "You win!";
+			}
+			else{
+				result.innerText = "Sorry, you lose.";
+			}
+			setTimeout(reset, 5000); //Game resets after 5 seconds.
+		}
+		
+		function reset(){ //resets the cups for the next game
+			var cup1 = document.getElementById("cup1");
+			var cup2 = document.getElementById("cup2");
+			var cup3 = document.getElementById("cup3");
+			cup1.onclick = function() {play(1);};
+			cup2.onclick = function() {play(2);};
+			cup3.onclick = function() {play(3);};
+			
+			var ball1 = document.getElementById("ball1");
+			var ball2 = document.getElementById("ball2");
+			var ball3 = document.getElementById("ball3");
+			var result = document.getElementById("result");
+			
+			cup1.style.top = 0 + 'px';
+			cup2.style.top = 0 + 'px';
+			cup3.style.top = 0 + 'px';
+			ball1.style.visibility = 'hidden';
+			ball2.style.visibility = 'hidden';
+			ball3.style.visibility = 'hidden';
+			result.innerText = "Guess which cup the ball is under.";
+		}
+		</script>
+</head>
+<body>
+	<h1>Welcome to the game!</h1>
+	<div class="cups">
+		<div id='1' class='cupdiv'><img id='ball1' class='ball' src='ball.png'></img><img class='cup' id='cup1' onClick='play(1);' src="cup2.png"></img></div>
+		<div id='2' class='cupdiv'><img id='ball2' class='ball' src='ball.png'></img><img class='cup' id='cup2' onClick='play(2);' src="cup2.png"></img></div>
+		<div id='3' class='cupdiv'><img id='ball3' class='ball' src='ball.png'></img><img class='cup' id='cup3'onClick='play(3);' src="cup2.png"></img></div>
+	</div>
+	
+	<div>
+	<p id='result'>Guess which cup the ball is under.</p>
+	</div>
+	
+
+</body>
+</html>
